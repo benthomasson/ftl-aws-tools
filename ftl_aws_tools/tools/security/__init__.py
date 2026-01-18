@@ -23,11 +23,15 @@ Usage:
         )
 """
 
-# Tool imports will be added here as tools are implemented
+# Tool imports
+from .kms_key import KMSKey
+
+# Additional imports will be added here as tools are implemented
 # from .iam_role import IAMRole
 # from .iam_policy import IAMPolicy
 # from .security_group import SecurityGroup
 
 __all__ = [
-    # Tool classes will be listed here
+    "KMSKey",
+    # Additional tool classes will be listed here
 ]
