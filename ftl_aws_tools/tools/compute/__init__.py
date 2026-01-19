@@ -24,11 +24,11 @@ Usage:
         )
 """
 
-# Tool imports will be added here as tools are implemented
-# from .ec2_instance import EC2Instance
-# from .ec2_security_group import EC2SecurityGroup
-# from .lambda_function import LambdaFunction
+# Tool imports
+from .lambda_function import LambdaFunction
+from .lambda_policy import LambdaPolicy
 
 __all__ = [
-    # Tool classes will be listed here
+    'LambdaFunction',
+    'LambdaPolicy'
 ]

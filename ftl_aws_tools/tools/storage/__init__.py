@@ -19,11 +19,9 @@ Usage:
         ftl.s3_object(bucket="my-bucket", key="file.txt", src="local-file.txt")
 """
 
-# Tool imports will be added here as tools are implemented
-# from .s3_bucket import S3Bucket
-# from .s3_object import S3Object
-# from .ebs_volume import EBSVolume
+# Tool imports
+from .s3_bucket import S3Bucket
 
 __all__ = [
-    # Tool classes will be listed here
+    'S3Bucket'
 ]

@@ -23,10 +23,11 @@ Usage:
         )
 """
 
-# Tool imports will be added here as tools are implemented
-# from .cloudwatch_alarm import CloudWatchAlarm
-# from .cloudtrail import CloudTrail
+# Tool imports
+from .cloudwatch_metric_alarm import CloudWatchAlarm
+from .cloudwatchlogs_log_group import CloudWatchLogsGroup
 
 __all__ = [
-    # Tool classes will be listed here
+    'CloudWatchAlarm',
+    'CloudWatchLogsGroup'
 ]
