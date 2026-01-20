@@ -72,12 +72,15 @@ class S3Bucket(AutomationTool):
             "requester_pays": requester_pays,
             "purge_tags": purge_tags,
             "bucket_key_enabled": bucket_key_enabled,
-            "delete_public_access_block": delete_public_access_block,
             "object_lock_enabled": object_lock_enabled,
             "validate_bucket_name": validate_bucket_name,
             "dualstack": dualstack,
             "accelerate_enabled": accelerate,
         }
+        
+        # Add delete_public_access only if explicitly requested and no public_access_block is set
+        if delete_public_access_block and not public_access_block:
+            module_args["delete_public_access"] = delete_public_access_block
         
         # Add bucket policy
         if policy:
@@ -112,7 +115,7 @@ class S3Bucket(AutomationTool):
         # Add any additional kwargs
         module_args.update(kwargs)
 
-        output = self.context.run_module(self.module, **module_args)
+        output = self.context.run_module_locally(self.module, **module_args)
 
         display_results(output, self.context.console, getattr(self.context, "log", None))
 

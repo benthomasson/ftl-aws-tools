@@ -83,7 +83,7 @@ class AAPCertificateGenerator(AutomationTool):
         # Add any additional kwargs
         module_args.update(kwargs)
 
-        output = self.context.run_module(self.module, **module_args)
+        output = self.context.run_module_locally(self.module, **module_args)
 
         display_results(output, self.context.console, getattr(self.context, "log", None))
 
