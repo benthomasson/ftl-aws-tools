@@ -94,7 +94,6 @@ class LambdaFunction(AutomationTool):
             "name": name,
             "state": state,
             "purge_tags": purge_tags,
-            "package_type": package_type,
         }
         
         # Add runtime and handler for Zip packages
@@ -131,13 +130,15 @@ class LambdaFunction(AutomationTool):
         if environment:
             module_args["environment_variables"] = environment
         
-        # Add dead letter config
+        # Add dead letter config (use 'dead_letter_arn' parameter)
         if dead_letter_config:
-            module_args["dead_letter_config"] = dead_letter_config
+            if "TargetArn" in dead_letter_config:
+                module_args["dead_letter_arn"] = dead_letter_config["TargetArn"]
         
-        # Add tracing config
+        # Add tracing config (use 'tracing_mode' parameter)
         if tracing_config:
-            module_args["tracing_config"] = tracing_config
+            if "Mode" in tracing_config:
+                module_args["tracing_mode"] = tracing_config["Mode"]
         
         # Add KMS key
         if kms_key_arn:
@@ -147,31 +148,20 @@ class LambdaFunction(AutomationTool):
         if layers:
             module_args["layers"] = layers
         
-        # Add VPC config
+        # Add VPC config (use individual parameters)
         if vpc_config:
-            module_args["vpc_config"] = vpc_config
+            if "SubnetIds" in vpc_config:
+                module_args["vpc_subnet_ids"] = vpc_config["SubnetIds"]
+            if "SecurityGroupIds" in vpc_config:
+                module_args["vpc_security_group_ids"] = vpc_config["SecurityGroupIds"]
         
-        # Add concurrency settings
-        if reserved_concurrency is not None:
-            module_args["reserved_concurrency"] = reserved_concurrency
-        if provisioned_concurrency_config:
-            module_args["provisioned_concurrency_config"] = provisioned_concurrency_config
+        # Skip concurrency settings and image config - not supported by module
         
-        # Add container image config
-        if image_config:
-            module_args["image_config"] = image_config
-        
-        # Add architectures
+        # Add architectures (use 'architecture' parameter name)
         if architectures:
-            module_args["architectures"] = architectures
+            module_args["architecture"] = architectures[0] if architectures else None
         
-        # Add ephemeral storage
-        if ephemeral_storage:
-            module_args["ephemeral_storage"] = ephemeral_storage
-        
-        # Add file system configs
-        if file_system_configs:
-            module_args["file_system_configs"] = file_system_configs
+        # Skip ephemeral storage and file system configs - not supported by module
         
         # Add tags
         if tags:
