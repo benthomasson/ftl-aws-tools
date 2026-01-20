@@ -6,7 +6,7 @@ from ftl_tools.utils import display_results, display_tool
 
 
 class IAMPolicy(AutomationTool):
-    name = "iam_managed_policy"
+    name = "iam_policy"
     module = "iam_policy"
     category = "aws_security"
     description = "Manage AWS IAM managed policies"
