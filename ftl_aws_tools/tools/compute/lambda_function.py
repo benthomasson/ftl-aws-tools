@@ -6,7 +6,7 @@ from ftl_tools.utils import display_results, display_tool
 
 
 class LambdaFunction(AutomationTool):
-    name = "lambda"
+    name = "lambda_function"
     module = "lambda"
     category = "aws_compute"
     description = "Manage AWS Lambda functions"
